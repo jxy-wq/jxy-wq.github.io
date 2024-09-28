@@ -35,19 +35,18 @@
         }
     </style>
     <script>
-        let Model = {};
-        Model.cet6String = '';
-        Model.CET6 = [];
-        Model.cetUrl = ['cet1.txt', 'cet2.txt', 'cet3.txt'];
-        for (let i = 0; i < Model.cetUrl.length; i++) {
+let Model = {} ;
+        Model.cet6Str = '' ;
+        Model.CET6 = [] ;
+        Model.cetUrl = ['cet1.txt','cet2,txt','cet3.txt'];
+        for(let i=0; i<Model.cetUrl.length; i++){
             fetch(Model.cetUrl[i])
-                .then(res => res.text())
-                .then(txt => {
-                    Model.cet6String += txt;
-                    UI.log('单词库：' + Model.cetUrl[i] + ' 加载成功!');
-                });
-        };
-
+            .then(res => res.text())
+            .then(txt => {
+                Model.cet6Str += txt ;
+                IU.log('单词库：' + Model.cetUrl[i] + ' 加载成功!') ;       
+            });
+          } ;
     </script>
 </head>
 <body>
