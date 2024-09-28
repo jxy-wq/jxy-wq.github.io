@@ -73,16 +73,16 @@
         let loadCet = select('button#loadCet');
         let randWord= select('button#randWord');
         loadCet.onclick=function(){
-        fetch('cet6.txt')
-        .then(res=>res.text())
-        .then(txt=>cet6Str=txt);
-        };
-        Model.CET6 = Model.cet6Str.split('\r\n') ;
+        Model.CET6 = Model.cet6String.split('\r\n') ;
+
         if(Model.CET6.length < 5000){
-            IU.log("单词正在读入,Please wait!");
+            IU.log("单词没有完全读入，Please wait!");
         }else{
-            IU.log("已经读入了"+ Model.CET6.length + "单词!")
+            IU.log("我已经读入了"+ Model.CET6.length + "单词!")
+        }
+        
         };
+      
         randWord.onclick=function(){
         if(cet6Str.length==0){
         let s='请先读入单词！';
