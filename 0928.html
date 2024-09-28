@@ -65,39 +65,49 @@
         20223493杨欣杰22计算机及科学与技术2班
     </footer>
     <script>
-        let UI = {};
-        UI.log = function (s) {
-            select('footer').textContent = s;
-        };
-        UI.headerLog = function (s) {
-            select('header').textContent = s;
-        };
-        select('button#loadWord').onclick = function () {
-            Model.CET6 = Model.cet6String.split('\r\n');
-
-            if (Model.CET6.length < 5000) {
-                UI.log("单词没有完全读入，Please wait!");
-            } else {
-                UI.log("我已经读入了" + Model.CET6.length + "单词!")
-            }
-
-        };
-        select('button#randWord').onclick = function () {
-
-            if (Model.CET6.length < 5000) {
-                UI.log("请点“读入单词”按钮");
-            } else {
-                let rand = Math.floor(Math.random() * Model.CET6.length);
-                UI.headerLog(Model.CET6[rand]);
-                UI.log("我已经读入了" + Model.CET6.length + "单词!")
-            }
-
-        };
-        function select(selector) {
-            let dom = document.querySelector(selector);
-            return dom;
+           let IU ={};
+        IU.log =function(s){
+            select('footer').textContent =s;
         }
-      
+        let cet6Str='';
+        let loadCet = select('button#loadCet');
+        let randWord= select('button#randWord');
+        loadCet.onclick=function(){
+        fetch('cet6.txt')
+        .then(res=>res.text())
+        .then(txt=>cet6Str=txt);
+        };
+        Model.CET6 = Model.cet6Str.split('\r\n') ;
+        if(Model.CET6.length < 5000){
+            IU.log("单词正在读入,Please wait!");
+        }else{
+            IU.log("已经读入了"+ Model.CET6.length + "单词!")
+        };
+        randWord.onclick=function(){
+        if(cet6Str.length==0){
+        let s='请先读入单词！';
+        select('footer').textContent=s;
+        }else{
+        let arr=cet6Str.split('\r\n');
+        console.log(arr);
+        let rand=Math.floor(Math.random()*arr.length);
+        let str=arr[rand];
+        console.log(str);
+        let begin=str.indexOf('\t');
+        let end=str.lastIndexOf('\t');
+        console.log('b:'+begin+'e:'+end);
+        let en=str.slice(0,begin);
+        let pr=str.slice(begin+1,end);
+        let cn=str.slice(end+1);
+        select('p#en').textContent=en;
+        select('p#pr').textContent=pr;
+        select('p#cn').textContent=cn;
+}
+};
+    function select(selector){
+    let dom=document.querySelector(selector);
+    return dom;
+}
     </script>
 
 </body>
