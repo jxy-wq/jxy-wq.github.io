@@ -99,9 +99,9 @@
         let en=str.slice(0,begin);
         let pr=str.slice(begin+1,end);
         let cn=str.slice(end+1);
-        select('p#en').textContent=en;
-        select('p#pr').textContent=pr;
-        select('p#cn').textContent=cn;
+        select('p#word').textContent=en;
+        select('p#pron').textContent=pr;
+        select('p#chinese').textContent=cn;
 }
 };
     function select(selector){
