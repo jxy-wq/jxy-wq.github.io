@@ -38,7 +38,7 @@
         let Model = {};
         Model.cet6String = '';
         Model.CET6 = [];
-        Model.cetUrl = ['cet/cet1.txt', 'cet/cet2.txt', 'cet/cet3.txt'];
+        Model.cetUrl = ['cet1.txt', 'cet2.txt', 'cet3.txt'];
         for (let i = 0; i < Model.cetUrl.length; i++) {
             fetch(Model.cetUrl[i])
                 .then(res => res.text())
