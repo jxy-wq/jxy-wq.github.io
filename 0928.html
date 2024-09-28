@@ -65,24 +65,24 @@
         20223493杨欣杰22计算机及科学与技术2班
     </footer>
     <script>
-           let IU ={};
+         let IU ={};
         IU.log =function(s){
             select('footer').textContent =s;
         }
         let cet6Str='';
-        let loadCet = select('button#loadCet');
+        let loadCet = select('button#loadWord');
         let randWord= select('button#randWord');
         loadCet.onclick=function(){
-        Model.CET6 = Model.cet6String.split('\r\n') ;
-
-        if(Model.CET6.length < 5000){
-            IU.log("单词没有完全读入，Please wait!");
-        }else{
-            IU.log("我已经读入了"+ Model.CET6.length + "单词!")
-        }
-        
+        fetch('cet6.txt')
+        .then(res=>res.text())
+        .then(txt=>cet6Str=txt);
         };
-      
+        Model.CET6 = Model.cet6Str.split('\r\n') ;
+        if(Model.CET6.length < 5000){
+            IU.log("单词正在读入,Please wait!");
+        }else{
+            IU.log("已经读入了"+ Model.CET6.length + "单词!")
+        };
         randWord.onclick=function(){
         if(cet6Str.length==0){
         let s='请先读入单词！';
