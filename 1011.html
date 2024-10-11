@@ -49,6 +49,17 @@ let Model = {} ;
                 IU.log('单词库：' + Model.cetUrl[i] + ' 加载成功!') ;
             });
           } ;
+        letarr=Model.cet6String.split('\n');
+for(leti=0;i<arr.length;i++){
+let s=arr[i];
+let word={};
+let wordArr=s.split('\t');
+word.en=wordArr[0];
+word.pn=wordArr[1];
+word.cn=wordArr[2];
+Model.CET6.push(word);
+}
+}
     </script>
 </head>
 <body>
