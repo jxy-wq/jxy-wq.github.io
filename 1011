@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf 8" />
+    <meta name="viewport" content="width=device width, initial scale=1.0">
+    <title>hello</title>
+    <style>
+        * {
+            margin: 0;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        p {
+            border: 1px solid black;
+        }
+
+        header {
+            height: 20%;
+            background-color: palegreen;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        main {
+            height: 70%;
+            background-color: aqua;
+        }
+
+        footer {
+            height: 10%;
+            background-color: brown;
+            color: white;
+        }
+    </style>
+    <script>
+let Model = {} ;
+        Model.cet6Str = '' ;
+        Model.CET6 = [] ;
+        Model.cetUrl = ['cet1.txt','cet2,txt','cet3.txt'];
+        for(let i=0; i<Model.cetUrl.length; i++){
+            fetch(Model.cetUrl[i])
+            .then(res => res.text())
+            .then(txt => {
+                Model.cet6Str += txt ;
+                IU.log('单词库：' + Model.cetUrl[i] + ' 加载成功!') ;
+            });
+          } ;
+    </script>
+</head>
+<body>
+    <header>
+        CET6
+    </header>
+    <main>
+        <p id="word">a</p>
+        <p id="pron">/ei//</p>
+        <p id="chinese"> art.一(个);每一(个);(同类事物中)任一个</p>
+        <button id="randWord">随机单词</button>
+        <button id="loadWord">读入单词</button>
+        <button id="nextWord">下个单词</button>
+        <button id="lastWord">结尾单词</button>
+    </main>
+    <footer>
+        20223493杨欣杰22计算机及科学与技术2班
+    </footer>
+    <script>
+         let IU ={};
+        IU.log =function(s){
+            select('footer').textContent =s;
+        }
+        let cet6Str='';
+        let loadCet = select('button#loadWord');
+        let randWord= select('button#randWord');
+        loadCet.onclick=function(){
+        fetch('cet6.txt')
+        .then(res=>res.text())
+        .then(txt=>cet6Str=txt);
+        };
+        Model.CET6 = Model.cet6Str.split('\r\n') ;
+        if(Model.CET6.length < 5000){
+            IU.log("单词正在读入,Please wait!");
+        }else{
+            IU.log("已经读入了"+ Model.CET6.length + "单词!")
+        };
+        randWord.onclick=function(){
+        if(cet6Str.length==0){
+        let s='请先读入单词！';
+        select('footer').textContent=s;
+        }else{
+        let arr=cet6Str.split('\r\n');
+        console.log(arr);
+        let rand=Math.floor(Math.random()*arr.length);
+        let str=arr[rand];
+        console.log(str);
+        let begin=str.indexOf('\t');
+        let end=str.lastIndexOf('\t');
+        console.log('b:'+begin+'e:'+end);
+        let en=str.slice(0,begin);
+        let pr=str.slice(begin+1,end);
+        let cn=str.slice(end+1);
+        select('p#word').textContent=en;
+        select('p#pron').textContent=pr;
+        select('p#chinese').textContent=cn;
+}
+        };
+        select('button#firstWord').onclick = function () {
+            let CET6 = Model.CET6;
+            let word = CET6[0];
+            IU.printWord(word);
+            IU.log('你选中了第 1 个单词');
+        };
+        select('button#lastWord').onclick = function () {
+            let CET6 = Model.CET6;
+            let word = CET6[CET6.length - 1];
+           IU.printWord(word);
+            IU.log('你选中了最后一个单词');
+        };
+        select('button#randWord').onclick = function () {
+            let CET6 = Model.CET6;
+            let rand = Math.floor(Math.random() * CET6.length);
+            let word = CET6[rand];
+            IU.printWord(word);
+            IU.log('你随机选中了第 ' + (rand + 1) + ' 个单词');
+        };
+        select('button#nextWord').onclick = function () {
+            let word = { en: 'sorry ', pn: 'so ri', cn: '不好意思！' };
+            IU.printWord(word);
+            IU.log('你选中的按钮，我暂时还不会写代码');
+        };
+    function select(selector){
+    let dom=document.querySelector(selector);
+    return dom;
+}
+    </script>
+
+</body>
+</html>
